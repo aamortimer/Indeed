@@ -1,0 +1,21 @@
+{
+  "name": "aamortimer/Indeed",
+  "description": "Indeed job search",
+  "license": "MIT",
+  "keywords": ["indeed"],
+  "authors": [
+    {
+      "name": "Andy Mortimer",
+      "email": "aamortimer@gmail.com"
+    }
+  ],
+  "require": {},
+  "require-dev": {
+    "phpunit/phpunit": "4.0.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Aamortimer\\Indeed\\": "src"
+    }
+  }
+}
