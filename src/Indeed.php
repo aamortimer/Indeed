@@ -134,7 +134,6 @@ class Indeed {
     // join in the default params
     $params = array_merge($this->default_params, $params);
 
-
     // check that a publiser has been set
     if (!is_array($params) || !key_exists('publisher', $params)) {
       throw new \InvalidArgumentException('Publiseher parameter either invalid or empty.');
