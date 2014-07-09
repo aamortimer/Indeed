@@ -3,13 +3,18 @@
 use Aamortimer\Indeed\Indeed;
 
 class IndeedTest extends PHPUnit_Framework_TestCase {
+  public function setUp()
+  {
+    $this->indeed = new Indeed;
+    $this->q = 'Web Developer';
+    $this->publisher = '444214432879792';
+  }
   /**
    * @expectedException InvalidArgumentException
    */
   public function testSearchPublisherException()
   {
-     $indeed = new Indeed;
-     $indeed->search(array('q'=>'Web Developer'));
+     $this->indeed->search(array('q'=>$this->q));
   }
 
   /**
@@ -17,8 +22,33 @@ class IndeedTest extends PHPUnit_Framework_TestCase {
    */
   public function testSearchQueryException()
   {
-    $indeed = new Indeed;
-    $indeed->search(array('publisher'=>'12345'));
+    $this->indeed->search(array('publisher'=>$this->publisher));
+  }
+
+  public function testSearchResultsFormat()
+  {
+    $response = $this->indeed->search(array(
+      'publisher'=>$this->publisher,
+      'q'=>$this->q
+    ));
+
+    $this->assertTrue(is_object($response));
+  }
+
+  public function testDetails()
+  {
+    $response = $this->indeed->search(array(
+      'publisher'=>$this->publisher,
+      'q'=>$this->q
+    ));
+
+    $jobkey = $response->results[0]->jobkey;
+    $response = $this->indeed->details(array(
+      'publisher'=>$this->publisher,
+      'jobkeys'=>$jobkey
+    ));
+
+    $this->assertTrue(is_object($response));
   }
 
   /**
@@ -26,8 +56,7 @@ class IndeedTest extends PHPUnit_Framework_TestCase {
    */
   public function testDetailsJobKeyException()
   {
-    $indeed = new Indeed;
-    $indeed->details(array('publisher'=>'12345'));
+    $this->indeed->details(array('publisher'=>$this->publisher));
   }
 
 

@@ -18,13 +18,22 @@ class Indeed {
    */
   private $publisher;
 
+  /**
+   * Parameters
+   *
+   * @var  integer
+   */
+  private $params;
 
    /**
    * Base URL
    *
    * @var  string
    */
-  private $base_url = 'http://api.indeed.com/ads/apisearch';
+  private $base_urls = [
+    'search'=>'http://api.indeed.com/ads/apisearch',
+    'details'=>'http://api.indeed.com/ads/apigetjobs'
+  ];
 
   /**
    * Accepted parameters that the feed will accept; see a list of descriptions at
@@ -96,8 +105,7 @@ class Indeed {
       throw new \InvalidArgumentException('Query parameter either invalid or empty.');
     }
 
-    $uri = $this->buildURI($params);
-    echo $uri;
+    return $this->getURL($params, $this->base_urls['search']);
   }
 
   /**
@@ -111,18 +119,18 @@ class Indeed {
       throw new \InvalidArgumentException('JobKeys parameter either invalid or empty.');
     }
 
-    $uri = $this->buildURI($params);
-    //echo $uri;
+    return $this->getURL($params, $this->base_urls['details']);
   }
 
   /**
-  * Builds the URI based on the passed parameters and default
+  * Builds the URL based on the passed parameters and default
   *
   * @param   array   $params  Array of parameters or search query
+  * @param   string  $base_url  String containing the base url
   *
   * @return  string
   */
-  private function buildURI($params)
+  private function buildURL($params, $base_url)
   {
     // check if params are an array or just the search query
     $params = (is_array($params)) ? $params : array('q'=>$params);
@@ -138,22 +146,45 @@ class Indeed {
     }
 
     // join in the default params
-    $params = array_merge($this->default_params, $params);
+    $this->params = array_merge($this->default_params, $params);
 
     // check that a publiser has been set
-    if (!is_array($params) || !key_exists('publisher', $params)) {
+    if (!is_array($this->params) || !key_exists('publisher', $this->params)) {
       throw new \InvalidArgumentException('Publiseher parameter either invalid or empty.');
     }
 
     // build the query
-    $uri = '';
-    foreach ($params as $key => $value) {
+    $url = '';
+    foreach ($this->params as $key => $value) {
       if(in_array($key, $this->accepted_params)) {
-        $sep = ($uri === '') ? '?' : '&';
-        $uri .= $sep . $key . '=' . urlencode($value);
+        $sep = ($url === '') ? '?' : '&';
+        $url .= $sep . $key . '=' . urlencode($value);
       }
     }
 
-    return $this->base_url.$uri;
+    return $base_url.$url;
+  }
+
+  /**
+  * Fetches the data from the url
+  *
+  * @param  mixed  $params   Array of parameters or search query
+  * @param  string  $base_url  String containing the base url
+  *
+  * @return  mixed
+  */
+  private function getURL($params, $base_url)
+  {
+    $url = $this->buildURL($params, $base_url);
+
+    if ($this->params['format'] === 'json') {
+      $response = json_decode(file_get_contents($url));
+    } elseif($this->params['format'] === 'xml' ) {
+      $response = simplexml_load_file($url);
+    } else {
+      $response = file_get_contents($url);
+    }
+
+    return $response;
   }
 }
