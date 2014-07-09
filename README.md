@@ -3,6 +3,16 @@ Indeed API
 
 PHP interface to Indeed job search API.
 
+How to Install
+-------------------------------------------------------------------------------
+
+Using Composer (Recommended)
+
+Install the Aamortimer/Indeed package:
+
+$ composer require "Aamortimer/Indeed"
+
+
 Example of Usage
 -------------------------------------------------------------------------------
 
