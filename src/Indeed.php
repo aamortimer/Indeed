@@ -101,11 +101,12 @@ class Indeed {
    */
   public function details($params)
   {
-    if (!is_array($params) || !in_array('jobkeys', $params)) {
-      throw new \InvalidArgumentException('Invalid Job Keys');
+    if (!is_array($params) || !key_exists('jobkeys', $params)) {
+      throw new \InvalidArgumentException('JobKeys parameter either invalid or empty.');
     }
 
     $uri = $this->buildURI($params);
+    echo $uri;
   }
 
   /**
@@ -133,6 +134,12 @@ class Indeed {
     // join in the default params
     $params = array_merge($this->default_params, $params);
 
+
+    // check that a publiser has been set
+    if (!is_array($params) || !key_exists('publisher', $params)) {
+      throw new \InvalidArgumentException('Publiseher parameter either invalid or empty.');
+    }
+
     // build the query
     $uri = '';
     foreach ($params as $key => $value) {
@@ -142,6 +149,6 @@ class Indeed {
       }
     }
 
-    return $this->baseURL.$uri;
+    return $this->base_url.$uri;
   }
 }
