@@ -91,7 +91,13 @@ class Indeed {
    */
   public function search($params)
   {
+    // check that a query parameter has been set
+    if ( (is_array($params) && !key_exists('q', $params)) || (!is_array($params) && !$params) ) {
+      throw new \InvalidArgumentException('Query parameter either invalid or empty.');
+    }
+
     $uri = $this->buildURI($params);
+    echo $uri;
   }
 
   /**
@@ -106,7 +112,7 @@ class Indeed {
     }
 
     $uri = $this->buildURI($params);
-    echo $uri;
+    //echo $uri;
   }
 
   /**
