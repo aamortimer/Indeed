@@ -10,8 +10,9 @@ Using Composer (Recommended)
 
 Install the Aamortimer/Indeed package:
 
+```shell
 $ composer require "Aamortimer/Indeed"
-
+```
 
 Example of Usage
 -------------------------------------------------------------------------------
