@@ -39,3 +39,13 @@ Example of Usage
     $response = $indeed->details(array(
       'jobkeys' => $jobkey
     ));
+
+
+Releases
+-------------------------------------------------------------------------------
+
+### 1.0.0 (2014-07-09)
+
+Initial release
+
+* Query the job search and job details API
