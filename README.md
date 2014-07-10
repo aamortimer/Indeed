@@ -11,7 +11,7 @@ Using Composer (Recommended)
 Install the aamortimer/Indeed package:
 
 ```shell
-$ composer require "aamortimer/Indeed"
+$ composer require "aamortimer/indeed:dev-master"
 ```
 
 Example of Usage
