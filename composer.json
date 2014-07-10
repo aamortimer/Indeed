@@ -1,5 +1,5 @@
 {
-  "name": "aamortimer/Indeed",
+  "name": "aamortimer/indeed",
   "description": "Indeed job search",
   "license": "MIT",
   "keywords": ["indeed"],
@@ -15,7 +15,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Aamortimer\\Indeed\\": "src"
+      "aamortimer\\Indeed\\": "src"
     }
   }
 }

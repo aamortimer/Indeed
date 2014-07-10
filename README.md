@@ -8,10 +8,10 @@ How to Install
 
 Using Composer (Recommended)
 
-Install the Aamortimer/Indeed package:
+Install the aamortimer/Indeed package:
 
 ```shell
-$ composer require "Aamortimer/Indeed"
+$ composer require "aamortimer/Indeed"
 ```
 
 Example of Usage
@@ -19,7 +19,7 @@ Example of Usage
 
     <?php
 
-    use Aamortimer\Indeed\Indeed;
+    use aamortimer\Indeed\Indeed;
     $indeed = new Indeed(12345);
 
     // Pass a basic search query

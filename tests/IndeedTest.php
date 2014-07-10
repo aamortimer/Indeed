@@ -1,6 +1,6 @@
 <?php
 
-use Aamortimer\Indeed\Indeed;
+use aamortimer\Indeed\Indeed;
 
 class IndeedTest extends PHPUnit_Framework_TestCase {
   public function setUp()
